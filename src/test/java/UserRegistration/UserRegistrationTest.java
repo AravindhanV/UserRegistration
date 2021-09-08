@@ -34,4 +34,18 @@ public class UserRegistrationTest {
     	boolean result = userRegistration.validateEmail("abc.xyz");
     	assertFalse(result);
     }
+    
+    @Test
+    public void validatePhone_ValidPhoneInput_True() {
+    	UserRegistration userRegistration = new UserRegistration();
+    	boolean result = userRegistration.validatePhone("91 1234567890");
+    	assertTrue(result);
+    }
+    
+    @Test
+    public void validatePhone_InvalidPhoneInput_False() {
+    	UserRegistration userRegistration = new UserRegistration();
+    	boolean result = userRegistration.validatePhone("1234567890");
+    	assertFalse(result);
+    }
 }
