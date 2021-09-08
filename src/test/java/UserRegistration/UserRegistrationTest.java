@@ -55,4 +55,11 @@ public class UserRegistrationTest {
     	boolean result = userRegistration.validatePassword("12345");
     	assertFalse(result);
     }
+    
+    @Test
+    public void validatePassword_NoUppercaseInPassword_False() {
+    	UserRegistration userRegistration = new UserRegistration();
+    	boolean result = userRegistration.validatePassword("12345");
+    	assertFalse(result);
+    }
 }
