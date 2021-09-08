@@ -48,4 +48,11 @@ public class UserRegistrationTest {
     	boolean result = userRegistration.validatePhone("1234567890");
     	assertFalse(result);
     }
+    
+    @Test
+    public void validatePassword_ShortPassword_False() {
+    	UserRegistration userRegistration = new UserRegistration();
+    	boolean result = userRegistration.validatePassword("12345");
+    	assertFalse(result);
+    }
 }
