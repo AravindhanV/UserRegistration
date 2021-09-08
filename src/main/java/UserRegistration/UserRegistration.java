@@ -32,6 +32,11 @@ public class UserRegistration {
 		if (!pattern.matcher(password).matches()) {
 			return false;
 		}
+		
+		pattern = Pattern.compile(".*\\d.*");
+		if (!pattern.matcher(password).matches()) {
+			return false;
+		}
 
 		return true;
 	}
