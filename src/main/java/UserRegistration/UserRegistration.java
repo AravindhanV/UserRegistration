@@ -37,7 +37,12 @@ public class UserRegistration {
 		if (!pattern.matcher(password).matches()) {
 			return false;
 		}
-
+		
+		pattern = Pattern.compile("^[a-zA-Z0-9]*[^a-zA-Z0-9][a-zA-Z0-9]*$");
+		if (!pattern.matcher(password).matches()) {
+			return false;
+		}
+		
 		return true;
 	}
 }
