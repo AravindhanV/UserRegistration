@@ -83,4 +83,11 @@ public class UserRegistrationTest {
     	boolean result = userRegistration.validatePassword("ab$c%de");
     	assertFalse(result);
     }
+    
+    @Test
+    public void validatePassword_ValidPassword_True() {
+    	UserRegistration userRegistration = new UserRegistration();
+    	boolean result = userRegistration.validatePassword("aaaaa4$R");
+    	assertTrue(result);
+    }
 }
