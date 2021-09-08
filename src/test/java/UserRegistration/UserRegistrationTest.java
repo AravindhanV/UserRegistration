@@ -15,9 +15,23 @@ public class UserRegistrationTest {
     }
     
     @Test 
-    public void validateName_ValidNameInput_False() {
+    public void validateName_InvalidNameInput_False() {
         UserRegistration userRegistration = new UserRegistration();
         boolean result = userRegistration.validateName("AB");
         assertFalse(result);
+    }
+    
+    @Test
+    public void validateEmail_ValidEmailInput_True() {
+    	UserRegistration userRegistration = new UserRegistration();
+    	boolean result = userRegistration.validateEmail("abc.xyz@bl.co.in");
+    	assertTrue(result);
+    }
+    
+    @Test
+    public void validateEmail_InvalidEmailInput_False() {
+    	UserRegistration userRegistration = new UserRegistration();
+    	boolean result = userRegistration.validateEmail("abc.xyz");
+    	assertFalse(result);
     }
 }
