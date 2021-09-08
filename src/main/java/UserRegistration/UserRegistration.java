@@ -27,6 +27,11 @@ public class UserRegistration {
 		if(!pattern.matcher(password).matches()) {
 			return false;
 		}
+		
+		pattern = Pattern.compile(".*[A-Z].*");
+		if (!pattern.matcher(password).matches()) {
+			return false;
+		}
 
 		return true;
 	}
