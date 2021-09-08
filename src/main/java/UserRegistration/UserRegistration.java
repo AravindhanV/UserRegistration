@@ -11,4 +11,9 @@ public class UserRegistration {
 		pattern = Pattern.compile("^[A-Z][a-z]{2,}");
 		return pattern.matcher(name).matches();
 	}
+	
+	public boolean validateEmail(String email) {
+		Pattern pattern = Pattern.compile("abc(\\.xyz)?@bl\\.co(\\.in)?");
+		return pattern.matcher(email).matches();
+	}
 }
