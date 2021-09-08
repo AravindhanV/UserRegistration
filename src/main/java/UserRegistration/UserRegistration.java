@@ -21,4 +21,13 @@ public class UserRegistration {
 		Pattern pattern = Pattern.compile("^\\d{1,2}\\s\\d{10}$");
 		return pattern.matcher(phone).matches();
 	}
+	
+	public static boolean validatePassword(String password) {
+		Pattern pattern = Pattern.compile(".{7,}");
+		if(!pattern.matcher(password).matches()) {
+			return false;
+		}
+
+		return true;
+	}
 }
