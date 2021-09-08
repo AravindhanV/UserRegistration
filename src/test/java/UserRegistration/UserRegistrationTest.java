@@ -69,4 +69,18 @@ public class UserRegistrationTest {
     	boolean result = userRegistration.validatePassword("abcde");
     	assertFalse(result);
     }
+    
+    @Test
+    public void validatePassword_NoSpecialCharacterInPassword_False() {
+    	UserRegistration userRegistration = new UserRegistration();
+    	boolean result = userRegistration.validatePassword("abcde");
+    	assertFalse(result);
+    }
+    
+    @Test
+    public void validatePassword_ManySpecialCharacterInPassword_False() {
+    	UserRegistration userRegistration = new UserRegistration();
+    	boolean result = userRegistration.validatePassword("ab$c%de");
+    	assertFalse(result);
+    }
 }
