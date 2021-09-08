@@ -4,9 +4,24 @@
 package UserRegistration;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+@RunWith(Parameterized.class)
 public class UserRegistrationTest {
+	private String inputEmail;
+	private Boolean expectedOutput;
+
+	public UserRegistrationTest(String email, Boolean output) {
+		this.inputEmail = email;
+		this.expectedOutput = output;
+	}
+	
     @Test 
     public void validateName_ValidNameInput_True() {
         UserRegistration userRegistration = new UserRegistration();
@@ -22,17 +37,10 @@ public class UserRegistrationTest {
     }
     
     @Test
-    public void validateEmail_ValidEmailInput_True() {
+    public void validateEmail_ValidOrInvalidEmailInput_TrueOrFalse() {
     	UserRegistration userRegistration = new UserRegistration();
-    	boolean result = userRegistration.validateEmail("abc.xyz@bl.co.in");
-    	assertTrue(result);
-    }
-    
-    @Test
-    public void validateEmail_InvalidEmailInput_False() {
-    	UserRegistration userRegistration = new UserRegistration();
-    	boolean result = userRegistration.validateEmail("abc.xyz");
-    	assertFalse(result);
+    	boolean result = userRegistration.validateEmail(inputEmail);
+    	assertEquals(expectedOutput,result);
     }
     
     @Test
@@ -90,4 +98,14 @@ public class UserRegistrationTest {
     	boolean result = userRegistration.validatePassword("aaaaa4$R");
     	assertTrue(result);
     }
+    
+    @Parameterized.Parameters
+	public static Collection input() {
+		return Arrays.asList(new Object[][] { { "abc@yahoo.com",true }, { "abc-100@yahoo.com",true }, { "abc.100@yahoo.com",true },
+				{ "abc111@abc.com",true }, { "abc-100@abc.net",true }, { "abc.100@abc.com.au",true }, { "abc@1.com",true },
+				{ "abc@gmail.com.com",true }, { "abc+100@gmail.com",true }, { "abc",false }, { "abc@.com.my",false }, { "abc123@gmail.a",false },
+				{ "abc123@.com",false }, { "abc123@.com.com",false }, { ".abc@abc.com",false }, { "abc()*@gmail.com",false }, { "abc@%*.com",false },
+				{ "abc..2002@gmail.com",false }, { "abc.@gmail.com",false }, { "abc@abc@gmail.com",false }, { "abc@gmail.com.1a",false },
+				{ "abc@gmail.com.aa.au",false } });
+	}
 }

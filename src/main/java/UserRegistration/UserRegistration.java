@@ -11,38 +11,38 @@ public class UserRegistration {
 		pattern = Pattern.compile("^[A-Z][a-z]{2,}");
 		return pattern.matcher(name).matches();
 	}
-	
+
 	public boolean validateEmail(String email) {
-		Pattern pattern = Pattern.compile("abc(\\.xyz)?@bl\\.co(\\.in)?");
+		Pattern pattern = Pattern.compile("^abc[a-z0-9]*([+\\-_.][a-z0-9]{3})?@[a-z0-9]+\\.[a-z]{2,3}(\\.[a-z]{2,3})?$");
 		return pattern.matcher(email).matches();
 	}
-	
+
 	public boolean validatePhone(String phone) {
 		Pattern pattern = Pattern.compile("^\\d{1,2}\\s\\d{10}$");
 		return pattern.matcher(phone).matches();
 	}
-	
+
 	public static boolean validatePassword(String password) {
 		Pattern pattern = Pattern.compile(".{7,}");
-		if(!pattern.matcher(password).matches()) {
+		if (!pattern.matcher(password).matches()) {
 			return false;
 		}
-		
+
 		pattern = Pattern.compile(".*[A-Z].*");
 		if (!pattern.matcher(password).matches()) {
 			return false;
 		}
-		
+
 		pattern = Pattern.compile(".*\\d.*");
 		if (!pattern.matcher(password).matches()) {
 			return false;
 		}
-		
+
 		pattern = Pattern.compile("^[a-zA-Z0-9]*[^a-zA-Z0-9][a-zA-Z0-9]*$");
 		if (!pattern.matcher(password).matches()) {
 			return false;
 		}
-		
+
 		return true;
 	}
 }
