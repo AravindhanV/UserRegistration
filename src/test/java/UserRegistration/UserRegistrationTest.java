@@ -8,8 +8,16 @@ import static org.junit.Assert.*;
 
 public class UserRegistrationTest {
     @Test 
-    public void testSomeLibraryMethod() {
-        UserRegistration classUnderTest = new UserRegistration();
-        assertTrue("someLibraryMethod should return 'true'", classUnderTest.someLibraryMethod());
+    public void validateName_ValidNameInput_True() {
+        UserRegistration userRegistration = new UserRegistration();
+        boolean result = userRegistration.validateName("Abc");
+        assertTrue(result);
+    }
+    
+    @Test 
+    public void validateName_ValidNameInput_False() {
+        UserRegistration userRegistration = new UserRegistration();
+        boolean result = userRegistration.validateName("AB");
+        assertFalse(result);
     }
 }
