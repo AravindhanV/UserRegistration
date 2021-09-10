@@ -22,55 +22,63 @@ public class UserRegistration {
 		}
 	}
 
-	public boolean validateEmail(String email) throws EmailException{
+	public boolean validateEmail(String email) throws EmailException {
 		try {
-		Pattern pattern = Pattern
-				.compile("^abc[a-z0-9]*([+\\-_.][a-z0-9]{3})?@[a-z0-9]+\\.[a-z]{2,3}(\\.[a-z]{2,3})?$");
-		if(pattern.matcher(email).matches()) {
-			return true;
-		} else {
-			throw new EmailException("Please enter valid email",EmailException.ExceptionType.EMAIL_INVALID);
+			Pattern pattern = Pattern
+					.compile("^abc[a-z0-9]*([+\\-_.][a-z0-9]{3})?@[a-z0-9]+\\.[a-z]{2,3}(\\.[a-z]{2,3})?$");
+			if (pattern.matcher(email).matches()) {
+				return true;
+			} else {
+				throw new EmailException("Please enter valid email", EmailException.ExceptionType.EMAIL_INVALID);
+			}
+		} catch (NullPointerException e) {
+			throw new EmailException("Please enter valid email", EmailException.ExceptionType.EMAIL_NULL);
 		}
-		} catch(NullPointerException e) {
-			throw new EmailException("Please enter valid email",EmailException.ExceptionType.EMAIL_NULL);
-		}
-		
+
 	}
 
-	public boolean validatePhone(String phone) throws PhoneException{ 
+	public boolean validatePhone(String phone) throws PhoneException {
 		try {
-		Pattern pattern = Pattern.compile("^\\d{1,2}\\s\\d{10}$");
-		if(pattern.matcher(phone).matches()) {
-			return true;
-		} else {
-			throw new PhoneException("Please enter valid phone",PhoneException.ExceptionType.PHONE_INVALID);
-		}
-		} catch(NullPointerException e) {
-			throw new PhoneException("Please enter valid phone",PhoneException.ExceptionType.PHONE_NULL);
+			Pattern pattern = Pattern.compile("^\\d{1,2}\\s\\d{10}$");
+			if (pattern.matcher(phone).matches()) {
+				return true;
+			} else {
+				throw new PhoneException("Please enter valid phone", PhoneException.ExceptionType.PHONE_INVALID);
+			}
+		} catch (NullPointerException e) {
+			throw new PhoneException("Please enter valid phone", PhoneException.ExceptionType.PHONE_NULL);
 		}
 	}
 
-	public static boolean validatePassword(String password) {
-		Pattern pattern = Pattern.compile(".{7,}");
-		if (!pattern.matcher(password).matches()) {
-			return false;
-		}
+	public static boolean validatePassword(String password) throws PasswordException {
+		try {
+			Pattern pattern = Pattern.compile(".{7,}");
+			if (!pattern.matcher(password).matches()) {
+				throw new PasswordException("Please enter valid password",
+						PasswordException.ExceptionType.PASSWORD_INVALID_SHORT);
+			}
 
-		pattern = Pattern.compile(".*[A-Z].*");
-		if (!pattern.matcher(password).matches()) {
-			return false;
-		}
+			pattern = Pattern.compile(".*[A-Z].*");
+			if (!pattern.matcher(password).matches()) {
+				throw new PasswordException("Please enter valid password",
+						PasswordException.ExceptionType.PASSWORD_INVALID_UPPERCASE);
+			}
 
-		pattern = Pattern.compile(".*\\d.*");
-		if (!pattern.matcher(password).matches()) {
-			return false;
-		}
+			pattern = Pattern.compile(".*\\d.*");
+			if (!pattern.matcher(password).matches()) {
+				throw new PasswordException("Please enter valid passowrd",
+						PasswordException.ExceptionType.PASSWORD_INVALID_DIGIT);
+			}
 
-		pattern = Pattern.compile("^[a-zA-Z0-9]*[^a-zA-Z0-9][a-zA-Z0-9]*$");
-		if (!pattern.matcher(password).matches()) {
-			return false;
-		}
+			pattern = Pattern.compile("^[a-zA-Z0-9]*[^a-zA-Z0-9][a-zA-Z0-9]*$");
+			if (!pattern.matcher(password).matches()) {
+				throw new PasswordException("Please enter valid password",
+						PasswordException.ExceptionType.PASSWORD_INVALID_SPECIAL);
+			}
 
-		return true;
+			return true;
+		} catch (NullPointerException e) {
+			throw new PasswordException("Please enter valid password", PasswordException.ExceptionType.PASSWORD_NULL);
+		}
 	}
 }

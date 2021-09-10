@@ -108,45 +108,63 @@ public class UserRegistrationTest {
 	}
 
 	@Test
-	public void validatePassword_ShortPassword_False() {
+	public void validatePassword_ShortPassword_ShortPasswordException() {
+		try {
 		UserRegistration userRegistration = new UserRegistration();
 		boolean result = userRegistration.validatePassword("12345");
-		assertFalse(result);
+		} catch(PasswordException e) {
+			assertEquals(PasswordException.ExceptionType.PASSWORD_INVALID_SHORT,e.type);
+		}
 	}
 
 	@Test
-	public void validatePassword_NoUppercaseInPassword_False() {
+	public void validatePassword_NoUppercaseInPassword_UppercasePasswordException() {
+		try {
 		UserRegistration userRegistration = new UserRegistration();
-		boolean result = userRegistration.validatePassword("12345");
-		assertFalse(result);
+		boolean result = userRegistration.validatePassword("1234567");
+		} catch(PasswordException e) {
+			assertEquals(PasswordException.ExceptionType.PASSWORD_INVALID_UPPERCASE,e.type);
+		}
 	}
 
 	@Test
-	public void validatePassword_NoDigitInPassword_False() {
+	public void validatePassword_NoDigitInPassword_DigitPasswordException() {
+		try {
 		UserRegistration userRegistration = new UserRegistration();
-		boolean result = userRegistration.validatePassword("abcde");
-		assertFalse(result);
+		boolean result = userRegistration.validatePassword("Abcdefg");
+		} catch(PasswordException e) {
+			assertEquals(PasswordException.ExceptionType.PASSWORD_INVALID_DIGIT,e.type);
+		}
 	}
 
 	@Test
-	public void validatePassword_NoSpecialCharacterInPassword_False() {
+	public void validatePassword_NoSpecialCharacterInPassword_SpecialPasswordException() {
+		try {
 		UserRegistration userRegistration = new UserRegistration();
-		boolean result = userRegistration.validatePassword("abcde");
-		assertFalse(result);
+		boolean result = userRegistration.validatePassword("Abcdef123");
+		} catch (PasswordException e) {
+			assertEquals(PasswordException.ExceptionType.PASSWORD_INVALID_SPECIAL,e.type);
+		}
 	}
 
 	@Test
-	public void validatePassword_ManySpecialCharacterInPassword_False() {
+	public void validatePassword_ManySpecialCharacterInPassword_() {
+		try {
 		UserRegistration userRegistration = new UserRegistration();
-		boolean result = userRegistration.validatePassword("ab$c%de");
-		assertFalse(result);
+		boolean result = userRegistration.validatePassword("A2b$c%de");
+		} catch(PasswordException e) {
+			assertEquals(PasswordException.ExceptionType.PASSWORD_INVALID_SPECIAL,e.type);
+		}
 	}
 
 	@Test
 	public void validatePassword_ValidPassword_True() {
+		try {
 		UserRegistration userRegistration = new UserRegistration();
 		boolean result = userRegistration.validatePassword("aaaaa4$R");
-		assertTrue(result);
+		} catch(PasswordException e) {
+			
+		}
 	}
 
 	@Parameterized.Parameters
