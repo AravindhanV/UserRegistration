@@ -56,10 +56,24 @@ public class UserRegistrationTest {
 	}
 
 	@Test
-	public void validateEmail_ValidOrInvalidEmailInput_TrueOrFalse() {
+	public void validateEmail_ValidOrInvalidEmailInput_TrueOrInvalidEmailException() {
+		try {
 		UserRegistration userRegistration = new UserRegistration();
 		boolean result = userRegistration.validateEmail(inputEmail);
 		assertEquals(expectedOutput, result);
+		} catch(EmailException e) {
+			Assert.assertEquals(EmailException.ExceptionType.EMAIL_INVALID, e.type);
+		}
+	}
+	
+	@Test
+	public void validateEmail_NullEmailInput_NullEmailException() {
+		try {
+			UserRegistration userRegistration = new UserRegistration();
+			userRegistration.validateEmail(null);
+		} catch(EmailException e) {
+			Assert.assertEquals(EmailException.ExceptionType.EMAIL_NULL, e.type);
+		}
 	}
 
 	@Test

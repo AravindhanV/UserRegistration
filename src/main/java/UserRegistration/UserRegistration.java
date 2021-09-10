@@ -22,10 +22,19 @@ public class UserRegistration {
 		}
 	}
 
-	public boolean validateEmail(String email) {
+	public boolean validateEmail(String email) throws EmailException{
+		try {
 		Pattern pattern = Pattern
 				.compile("^abc[a-z0-9]*([+\\-_.][a-z0-9]{3})?@[a-z0-9]+\\.[a-z]{2,3}(\\.[a-z]{2,3})?$");
-		return pattern.matcher(email).matches();
+		if(pattern.matcher(email).matches()) {
+			return true;
+		} else {
+			throw new EmailException("Please enter valid email",EmailException.ExceptionType.EMAIL_INVALID);
+		}
+		} catch(NullPointerException e) {
+			throw new EmailException("Please enter valid email",EmailException.ExceptionType.EMAIL_NULL);
+		}
+		
 	}
 
 	public boolean validatePhone(String phone) {
