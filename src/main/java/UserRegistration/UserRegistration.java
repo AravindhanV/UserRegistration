@@ -37,9 +37,17 @@ public class UserRegistration {
 		
 	}
 
-	public boolean validatePhone(String phone) {
+	public boolean validatePhone(String phone) throws PhoneException{ 
+		try {
 		Pattern pattern = Pattern.compile("^\\d{1,2}\\s\\d{10}$");
-		return pattern.matcher(phone).matches();
+		if(pattern.matcher(phone).matches()) {
+			return true;
+		} else {
+			throw new PhoneException("Please enter valid phone",PhoneException.ExceptionType.PHONE_INVALID);
+		}
+		} catch(NullPointerException e) {
+			throw new PhoneException("Please enter valid phone",PhoneException.ExceptionType.PHONE_NULL);
+		}
 	}
 
 	public static boolean validatePassword(String password) {

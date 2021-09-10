@@ -78,16 +78,33 @@ public class UserRegistrationTest {
 
 	@Test
 	public void validatePhone_ValidPhoneInput_True() {
+		try {
 		UserRegistration userRegistration = new UserRegistration();
 		boolean result = userRegistration.validatePhone("91 1234567890");
 		assertTrue(result);
+		} catch(PhoneException e) {
+			
+		}
 	}
 
 	@Test
-	public void validatePhone_InvalidPhoneInput_False() {
+	public void validatePhone_InvalidPhoneInput_InvalidPhoneException() {
+		try {
 		UserRegistration userRegistration = new UserRegistration();
 		boolean result = userRegistration.validatePhone("1234567890");
-		assertFalse(result);
+		} catch(PhoneException e) {
+			assertEquals(PhoneException.ExceptionType.PHONE_INVALID, e.type);
+		}
+	}
+	
+	@Test
+	public void validatePhone_NullPhoneInput_NullPhoneException() {
+		try {
+		UserRegistration userRegistration = new UserRegistration();
+		boolean result = userRegistration.validatePhone(null);
+		} catch(PhoneException e) {
+			assertEquals(PhoneException.ExceptionType.PHONE_NULL, e.type);
+		}
 	}
 
 	@Test
