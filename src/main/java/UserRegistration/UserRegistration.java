@@ -5,15 +5,26 @@ package UserRegistration;
 
 import java.util.regex.Pattern;
 
+import UserRegistration.NameException.ExceptionType;
+
 public class UserRegistration {
-	public boolean validateName(String name) {
-		Pattern pattern;
-		pattern = Pattern.compile("^[A-Z][a-z]{2,}");
-		return pattern.matcher(name).matches();
+	public boolean validateName(String name) throws NameException {
+		try {
+			Pattern pattern;
+			pattern = Pattern.compile("^[A-Z][a-z]{2,}");
+			if (pattern.matcher(name).matches()) {
+				return false;
+			} else {
+				throw new NameException("Please enter valid name", ExceptionType.NAME_INVALID);
+			}
+		} catch (NullPointerException e) {
+			throw new NameException("Please enter valid name", ExceptionType.NAME_NULL);
+		}
 	}
 
 	public boolean validateEmail(String email) {
-		Pattern pattern = Pattern.compile("^abc[a-z0-9]*([+\\-_.][a-z0-9]{3})?@[a-z0-9]+\\.[a-z]{2,3}(\\.[a-z]{2,3})?$");
+		Pattern pattern = Pattern
+				.compile("^abc[a-z0-9]*([+\\-_.][a-z0-9]{3})?@[a-z0-9]+\\.[a-z]{2,3}(\\.[a-z]{2,3})?$");
 		return pattern.matcher(email).matches();
 	}
 
