@@ -13,7 +13,7 @@ public class UserRegistration {
 			Pattern pattern;
 			pattern = Pattern.compile("^[A-Z][a-z]{2,}");
 			if (pattern.matcher(name).matches()) {
-				return false;
+				return true;
 			} else {
 				throw new NameException("Please enter valid name", ExceptionType.NAME_INVALID);
 			}
