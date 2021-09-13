@@ -3,16 +3,27 @@
  */
 package com.bridgelabz.userregistration;
 
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 import com.bridgelabz.userregistration.NameException.ExceptionType;
 
+@FunctionalInterface
+interface InputValidation {
+	boolean validate(String regex, String input);
+}
+
 public class UserRegistration {
+	public static InputValidation validator = (regex, stringToValidate) -> {
+		Pattern pattern = Pattern.compile(regex);
+		return pattern.matcher(stringToValidate).matches();
+	};
+	static int i = 0;
+
 	public boolean validateName(String name) throws NameException {
 		try {
-			Pattern pattern;
-			pattern = Pattern.compile("^[A-Z][a-z]{2,}");
-			if (pattern.matcher(name).matches()) {
+			if (UserRegistration.validator.validate("^[A-Z][a-z]{2,}", name)) {
+				System.out.println("TRUE");
 				return true;
 			} else {
 				throw new NameException("Please enter valid name", ExceptionType.NAME_INVALID);
@@ -24,9 +35,8 @@ public class UserRegistration {
 
 	public boolean validateEmail(String email) throws EmailException {
 		try {
-			Pattern pattern = Pattern
-					.compile("^abc[a-z0-9]*([+\\-_.][a-z0-9]{3})?@[a-z0-9]+\\.[a-z]{2,3}(\\.[a-z]{2,3})?$");
-			if (pattern.matcher(email).matches()) {
+			if (UserRegistration.validator
+					.validate("^abc[a-z0-9]*([+\\-_.][a-z0-9]{3})?@[a-z0-9]+\\.[a-z]{2,3}(\\.[a-z]{2,3})?$", email)) {
 				return true;
 			} else {
 				throw new EmailException("Please enter valid email", EmailException.ExceptionType.EMAIL_INVALID);
@@ -40,7 +50,7 @@ public class UserRegistration {
 	public boolean validatePhone(String phone) throws PhoneException {
 		try {
 			Pattern pattern = Pattern.compile("^\\d{1,2}\\s\\d{10}$");
-			if (pattern.matcher(phone).matches()) {
+			if (UserRegistration.validator.validate("^\\d{1,2}\\s\\d{10}$", phone)) {
 				return true;
 			} else {
 				throw new PhoneException("Please enter valid phone", PhoneException.ExceptionType.PHONE_INVALID);
@@ -52,26 +62,22 @@ public class UserRegistration {
 
 	public static boolean validatePassword(String password) throws PasswordException {
 		try {
-			Pattern pattern = Pattern.compile(".{7,}");
-			if (!pattern.matcher(password).matches()) {
+			if (!validator.validate(".{7,}", password)) {
 				throw new PasswordException("Please enter valid password",
 						PasswordException.ExceptionType.PASSWORD_INVALID_SHORT);
 			}
 
-			pattern = Pattern.compile(".*[A-Z].*");
-			if (!pattern.matcher(password).matches()) {
+			if (!validator.validate(".*[A-Z].*", password)) {
 				throw new PasswordException("Please enter valid password",
 						PasswordException.ExceptionType.PASSWORD_INVALID_UPPERCASE);
 			}
 
-			pattern = Pattern.compile(".*\\d.*");
-			if (!pattern.matcher(password).matches()) {
+			if (!validator.validate(".*\\d.*", password)) {
 				throw new PasswordException("Please enter valid passowrd",
 						PasswordException.ExceptionType.PASSWORD_INVALID_DIGIT);
 			}
 
-			pattern = Pattern.compile("^[a-zA-Z0-9]*[^a-zA-Z0-9][a-zA-Z0-9]*$");
-			if (!pattern.matcher(password).matches()) {
+			if (!validator.validate("^[a-zA-Z0-9]*[^a-zA-Z0-9][a-zA-Z0-9]*$", password)) {
 				throw new PasswordException("Please enter valid password",
 						PasswordException.ExceptionType.PASSWORD_INVALID_SPECIAL);
 			}
