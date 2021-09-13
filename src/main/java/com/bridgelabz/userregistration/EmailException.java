@@ -1,6 +1,6 @@
 package com.bridgelabz.userregistration;
 
-public class EmailException extends Exception{
+public class EmailException extends RuntimeException{
 	enum ExceptionType {
 		EMAIL_INVALID,
 		EMAIL_NULL

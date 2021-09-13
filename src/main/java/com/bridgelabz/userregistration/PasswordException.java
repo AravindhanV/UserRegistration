@@ -1,6 +1,6 @@
 package com.bridgelabz.userregistration;
 
-public class PasswordException extends Exception{
+public class PasswordException extends RuntimeException{
 	enum ExceptionType {
 		PASSWORD_INVALID_SHORT,
 		PASSWORD_INVALID_UPPERCASE,

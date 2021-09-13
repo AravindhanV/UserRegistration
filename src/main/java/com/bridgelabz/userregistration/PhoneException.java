@@ -1,6 +1,6 @@
 package com.bridgelabz.userregistration;
 
-public class PhoneException extends Exception{
+public class PhoneException extends RuntimeException{
 	enum ExceptionType {
 		PHONE_INVALID,
 		PHONE_NULL
