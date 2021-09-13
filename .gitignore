@@ -3,14 +3,7 @@
 
 # Ignore Gradle build output directory
 build
-gradle
-.settings
-gradlew
-gradlew.bat
-settings.gradle
-.gitattributes
-.settings
-bin
-.classpath
 .project
-build.gradle
+.settings/
+.classpath
+bin/
