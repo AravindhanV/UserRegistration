@@ -1,4 +1,4 @@
-package UserRegistration;
+package com.bridgelabz.userregistration;
 
 public class PhoneException extends Exception{
 	enum ExceptionType {

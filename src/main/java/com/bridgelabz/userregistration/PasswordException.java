@@ -1,4 +1,4 @@
-package UserRegistration;
+package com.bridgelabz.userregistration;
 
 public class PasswordException extends Exception{
 	enum ExceptionType {
